@@ -12,12 +12,11 @@ Some points to clear out before we start:
 * The experience will be in open space, meaning no obstacles will be placed between the Tag and the **ESP32**
 * The distance steps between each iteration and the other will increase as the distance increases
 
-### An Overview of the Repo
+## An Overview of the Repo
 
 A brief explaination of different parts of the experience
 
-
-### Software:
+### Software
 
 * Python installed (don't know what you doing in your life if you dont have python already installed).
 * VSCode 🙃
@@ -25,28 +24,28 @@ A brief explaination of different parts of the experience
 * The Arduino IDE (or you can simply use the vscode extension)
 * Postman to send POST requests to our server (or you can simply use the REST vscode extension)
 
-### Hardware:
+### Hardware
 
 * ESP32.
 * BLE Tag.
 * A computer (obviously).
 
-
 ### The Code
 
-#### The server (./server):
+#### The server (`./src/server`):
 
 In this experience we will have to code a API/Server that will save the readings comming from the ESP32 and save it to the csv file
 
 End points:
 
-* POST /save-scan : To which we will post values of the scans from the ESP32 to be saved in a csv file
-* POST /set-distance : will be used to set the distance between the antenna and the tag
-* POST /start-recording : will enable recording, recording will be automatically stopped after receiving 50 readings
-* POST /stop-recording : will stop recording, without reseting the readings counter to 0
-* POST /reset-counter : will reset counter to 0.
+* POST `/save-scan` : To which we will post values of the scans from the ESP32 to be saved in a csv file
+* POST `/set-distance` : will be used to set the distance between the antenna and the tag
+* POST `/start-recording` : will enable recording, recording will be automatically stopped after receiving 50 readings
+* POST `/stop-recording` : will stop recording, without reseting the readings counter to 0
+* POST `/reset-counter` : will reset counter to 0.
 
-#### ESP32 / Arduino software (./esp32):
+
+#### ESP32 / Arduino software (`./src/esp32`):
 
 In this experience we'll use the Arduino IDE to code the ESP32
 
@@ -54,21 +53,21 @@ The code will first connect to the WiFi and start scaning for bluetooth devices,
 
 http://{server_ip_addr}:5000/save-scan?maxAddress={theTagAddress}&rssi={the_rssi_value}
 
-#### Jupyter notebook (./model)
+
+#### Jupyter notebook (`./src/model`)
 
 After saving the values to the csv file. we will then load the csv file to a python notebook to perform the following.
 
 * First, a simple visualization of the readings wont be harmful and will give us a sense of what we are dealing with.
 * We will take 40 random readings from the data on which we will calculate the model, and keep 10 reading for accuracy evaluation.
 * Then we will take the 40 readings corresponding to each distance and calculate its median, the median here is used to not be affected by outliers.
-* We will use the numpy funciton polyfit along with the exp function to get a first order model of the antenna
-  * y = A . exp(-**α** . x - B); where y is the distance and x is the rssi
+* We will then write some code to get a valid model (explained in the jupyter notebook).
 * Finally, We test the our model on the remaining 20% of the data, to get the accuracy of the model.
 
 
 ## How to use this repo
 
-##### Installation:
+##### Installation
 
 I'm using a virtual env for this project with python 3.8, you can do the same or just take responsibility of your own decisions.
 
@@ -91,6 +90,7 @@ python -m venv .venv
 ```powershell
 pip install -r ./requirements.txt
 ```
+
 
 
 ##### Start the server
@@ -138,9 +138,8 @@ Aaaand ... hahaha nothing that's all, you can upload now and move to next step.
 
 You will find explaination of the code in the code.
 
-
 ## License
 
-MIT **Free Software, Enjoy!** 
+MIT **Free Software, Enjoy!**
 
 You can donate from here: [donation link](https://youtu.be/dQw4w9WgXcQ)
