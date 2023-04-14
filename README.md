@@ -2,6 +2,7 @@
 
 ## Summary
 
+* [Introduction](#introduction)
 * [An Overview of the Repo](#an-overview-of-the-repo)
   * [Software](#software)
   * [Hardware](#hardware)
@@ -16,6 +17,8 @@
   * [Get the RSSI to Distance Model](#get-the-rssi-to-distance-model)
 * [License / Donation](#license)
 
+
+## Introduction
 
 In this repository we will try to identify the Bluetooth Antenna model of an **ESP32**.
 
