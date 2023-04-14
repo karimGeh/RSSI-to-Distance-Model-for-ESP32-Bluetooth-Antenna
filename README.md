@@ -1,5 +1,22 @@
 # RSSI to Distance Model for ESP32 Bluetooth Antenna
 
+## Summary
+
+* [An Overview of the Repo](#an-overview-of-the-repo)
+  * [Software](#software)
+  * [Hardware](#hardware)
+  * [The Code](#the-code)
+    * [The server]()
+    * [ESP32 / Arduino]()
+    * [Identification]()
+* [How to use this repo]()
+  * [Installation]()
+  * [Start the server]()
+  * [Upload ESP32 code]()
+  * [Get the RSSI to Distance Model]()
+* [License / Donation]()
+
+
 In this repository we will try to identify the Bluetooth Antenna model of an **ESP32**.
 
 This model should be able to convert **RSSI** to Distance.
@@ -44,7 +61,6 @@ End points:
 * POST `/stop-recording` : will stop recording, without reseting the readings counter to 0
 * POST `/reset-counter` : will reset counter to 0.
 
-
 #### ESP32 / Arduino software (`./src/esp32`):
 
 In this experience we'll use the Arduino IDE to code the ESP32
@@ -53,8 +69,7 @@ The code will first connect to the WiFi and start scaning for bluetooth devices,
 
 http://{server_ip_addr}:5000/save-scan?maxAddress={theTagAddress}&rssi={the_rssi_value}
 
-
-#### Jupyter notebook (`./src/model`)
+#### Identification(`./src/model`)
 
 After saving the values to the csv file. we will then load the csv file to a python notebook to perform the following.
 
@@ -63,7 +78,6 @@ After saving the values to the csv file. we will then load the csv file to a pyt
 * Then we will take the 40 readings corresponding to each distance and calculate its median, the median here is used to not be affected by outliers.
 * We will then write some code to get a valid model (explained in the jupyter notebook).
 * Finally, We test the our model on the remaining 20% of the data, to get the accuracy of the model.
-
 
 ## How to use this repo
 
@@ -91,8 +105,6 @@ python -m venv .venv
 pip install -r ./requirements.txt
 ```
 
-
-
 ##### Start the server
 
 You need to activate your venv first, then execute the following command in the root direcotry of the repo
@@ -106,7 +118,6 @@ Notes:
 * The server won't save any readings from your ESP32 unless you send a post request to the start recording endpoint mentionend above.
 * Before changing the distance between the antenna and the tag, you need to send  a POST request to the stop recording endpoint mentioned above.
 * The reset counter endpoint won't only reset the counter, but also deletes all readings from the csv file that has the currented setted distance value.
-
 
 ##### Upload ESP32 code
 
@@ -125,7 +136,6 @@ Aaaand you need to set your own WiFi SSID and Password.
 Aaaand update the server url with your computer IP address
 
 Aaaand ... hahaha nothing that's all, you can upload now and move to next step.
-
 
 ##### Get the RSSI to DISTANCE model
 
