@@ -1,4 +1,5 @@
 from models.Antenna import Antenna
+from datetime import datetime
 
 
 class State:
@@ -14,19 +15,30 @@ class State:
             # "ff:21:10:25:35:0c": Antenna(macAddress="ff:21:10:25:35:0c"),
         }
 
+        self.startTime = None
+        self.endTime = None
+
     def saveScan(self, scanData):
         if not self.isRecordingEnabled or self.counter >= self.maxReadings:
             return
 
-        self.antennas[scanData["antennaId"]].addScan(
-            {
-                "macAddress": scanData["macAddress"],
-                "rssi": scanData["rssi"],
-                "distance": self.currentDistance,
-            }
-        )
+        if self.counter == 0:
+            self.startTime = datetime.now()
+        if self.counter == self.maxReadings - 1:
+            self.endTime = datetime.now()
+            timeTaken = self.endTime - self.startTime
+            timeTaken = timeTaken.total_seconds()
+            print(f"Time taken: {timeTaken} seconds")
+
+        scan = {
+            "macAddress": scanData["macAddress"],
+            "rssi": scanData["rssi"],
+            "distance": self.currentDistance,
+            "counter": self.counter,
+        }
+        self.antennas[scanData["antennaId"]].addScan(scan)
         self.counter += 1
-        print(scanData)
+        print(scan)
 
     def startRecording(self):
         self.isRecordingEnabled = True

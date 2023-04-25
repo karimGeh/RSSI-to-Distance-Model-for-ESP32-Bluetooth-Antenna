@@ -1,8 +1,5 @@
-# with reload on save
+import os
 
+ip_address = "192.168.2.100"
 
-import uvicorn
-
-# from main import app
-
-uvicorn.run("main:app", host="192.168.2.101", port=8000, reload=True)
+os.system(f"uvicorn main:app --host {ip_address} --reload")

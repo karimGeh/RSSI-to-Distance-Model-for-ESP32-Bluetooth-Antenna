@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 
 from handlers import Handlers
 
@@ -34,13 +35,10 @@ for key, routeObj in routesObj.items():
     )
     app.routes.append(route)
 
-# add static files
-# staticRoute = APIRoute(
-#     "/",
-#     StaticFiles(directory="./client"),
-#     methods=["GET"],
-#     response_model=None,
-# )
-# app.routes.append(staticRoute)
 
-app.mount("/", StaticFiles(directory="./client"), name="client")
+@app.get("/", response_class=HTMLResponse)
+def index():
+    return open("./client/index.html", "r").read()
+
+
+# app.mount("/", StaticFiles(directory="./client"), name="client")

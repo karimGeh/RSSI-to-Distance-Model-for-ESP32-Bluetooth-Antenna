@@ -12,7 +12,13 @@ class Antenna(BaseModel):
     def saveReadingsToCSVFile(self, directory: str):
         if len(self.readings) == 0:
             return
-        filePath = f"{directory}/{self.antennaId}.csv".replace(":", "-")
+        # create directory if not exist
+        directory = f"{directory}/{self.antennaId}".replace(":", "-")
+        if not os.path.exists(directory):
+            os.mkdir(directory)
+
+        macAddress = self.readings[0]["macAddress"]
+        filePath = f"{directory}/{macAddress}.csv".replace(":", "-")
         # create if not exist directory
         if not os.path.exists(directory):
             os.makedirs(directory)

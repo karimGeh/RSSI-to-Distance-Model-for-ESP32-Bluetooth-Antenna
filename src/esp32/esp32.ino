@@ -12,7 +12,7 @@
 const char *ssid = "M7GE";
 const char *password = "KarimGehad2607";
 
-const char *host = "http://192.168.2.101:8000/save-scan";
+const char *host = "http://192.168.2.100:8000/save-scan";
 
 unsigned long lastTime = 0;
 int intervalInSeconds = 1; // 1 second
